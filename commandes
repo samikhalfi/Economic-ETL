@@ -1,0 +1,27 @@
+START :
+bin/zookeeper-server-start.sh config/zookeeper.properties
+bin/kafka-server-start.sh config/server.properties
+
+CREATE TOPIC :
+./kafka-topics.sh --bootstrap-server localhost:9092 \
+--create \
+--replication-factor 1 \
+--partitions 1 \
+--topic test-topic
+
+TEST TOPIC :
+./kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+Décrire un topic spécifique :
+./kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic test-topic
+
+LANCER UN CONSOMMATEUR :
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-topic
+
+LANCER UN PRODUCTEUR :
+./kafka-console-producer.sh --broker-list localhost:9092 --topic test-topic
+
+
+STOP :
+./bin/kafka-server-stop.sh
+./bin/zookeeper-server-stop.sh

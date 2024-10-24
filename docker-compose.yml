@@ -1,0 +1,17 @@
+version: '3'
+services:
+  cassandra:
+    image: cassandra:latest
+    ports:
+      - "9042:9042"
+    environment:
+      CASSANDRA_CLUSTER_NAME: "MyCluster"
+
+  spark:
+    image: bitnami/spark:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - cassandra
+    environment:
+      - SPARK_MASTER_URL=spark://spark:7077
